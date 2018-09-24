@@ -128,6 +128,11 @@ class WordsearchInputTests(unittest.TestCase):
             for j in range(len(self.wsearch.grid[i])):
                 if self.wsearch.grid[i][j] != myGrid[i][j]:
                     self.fail()
+    
+    #test that when a wordsearch object is instantiated with the example file location, it is parsed, loaded, and valid
+    def test_wordsearch_instantiation_with_example_external_file_location_is_valid(self):
+        wsearch = Wordsearch("wordsearchEx1.txt")
+        self.assertEqual(True, wsearch.isValid())
         
     
 if __name__ == "__main__":

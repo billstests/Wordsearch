@@ -1,8 +1,16 @@
-
+import os
 
 class Wordsearch:
     def __init__(self, fileLocation):
         self.results = dict()
+        if os.path.exists(fileLocation):
+            self.loadDataFile(fileLocation)
+        
+    def loadDataFile(self, fileLocation):
+        f = open(fileLocation, 'r')
+        lines = f.readlines()
+        f.close()
+        self.keywords, self.grid = self.parse(lines)
         
     def loadData(self, keywords=[], grid=[]):
         self.keywords = keywords
