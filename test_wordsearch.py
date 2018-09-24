@@ -69,6 +69,16 @@ class WordsearchInputTests(unittest.TestCase):
         myGrid = [['A','B','C'],['E','F','G']]
         self.wsearch.loadData(keywords=myKeywords, grid=myGrid)
         self.assertEqual(False, self.wsearch.isValid())
+       
+    #test that the elements of a grid are single chars [A-Z] else the data is not considered valid    
+    def test_wordsearch_data_not_valid_if_grid_elements_not_single_chars_AtoZ(self):
+        myKeywords = ["KEYONE", "KEYTWO"]
+        myGrid = [['A','B','C'], ['E','F','G'], ['E','FF','G']]
+        myGrid2 = [['A','B','C'], ['E','','G'], ['E','F','G']]
+        self.wsearch.loadData(keywords=myKeywords, grid=myGrid)
+        self.assertEqual(False, self.wsearch.isValid())
+        self.wsearch.loadData(keywords=myKeywords, grid=myGrid2)
+        self.assertEqual(False, self.wsearch.isValid())
         
     
         
