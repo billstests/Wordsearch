@@ -13,4 +13,10 @@ class Wordsearch:
         if len(self.keywords) == 0:
             return False
         
+        #Make sure keywords consist entirely of chars in [A-Z]
+        for kword in self.keywords:
+            for c in kword:
+                if not c.isupper():
+                    return False
+        
         return True
