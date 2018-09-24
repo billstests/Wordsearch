@@ -28,14 +28,14 @@ class WordsearchInputTests(unittest.TestCase):
     #####################################################################
     #--tests to check validity of data (keyword and character grid)
     
-    #test that if an empty list of keywords is loaded, that the data is considered not valid
+    #test that if an empty list of keywords is loaded, that the data is not considered valid
     def test_wordsearch_data_not_valid_if_keywords_is_empty_list(self):
         myKeywords = []
         self.wsearch.loadData(keywords=myKeywords)
         isDataValid = self.wsearch.isValid()
         self.assertEqual(False, isDataValid)
         
-    #test that if keywords contains anythings except characters [A-Z], the data is considered not valid
+    #test that if keywords contains anythings except characters [A-Z], the data is not considered valid
     def test_wordsearch_data_not_valid_if_keywords_chars_not_AtoZ(self):
         keywordTests =  [["KEYWORD1"], ["KEYWORDO.E"], ["KeyWORD", "KEYWORDTWO"]]
         
@@ -43,10 +43,20 @@ class WordsearchInputTests(unittest.TestCase):
             self.wsearch.loadData(keywords = myKeywords)
             self.assertEqual(False, self.wsearch.isValid())
 
-    def test_wordsearch_data_not_valid_if_keyword_less_than_two_chars(self):
+    #test that keywords must be at least two chars, else the data is not conidered valid
+    def test_wordsearch_data_not_valid_if_keywords_less_than_two_chars(self):
         myKeywords = ["KEYWORDONE", "KEYWORDTWO", "K"]
         self.wsearch.loadData(keywords = myKeywords)
         self.assertEqual(False, self.wsearch.isValid())
+        
+    #tests that the grid is not an empty list, else the data is not considered valid
+    def test_wordsearch_data_not_valid_if_grid_is_empty_list(self):
+        myKeywords = ["KEYWORDONE", "KEYWORDTWO"]
+        myGrid = []
+        self.wsearch.loadData(keywords = myKeywords, grid = myGrid)
+        self.assertEqual(False, self.wsearch.isValid())
+        
+    
         
 if __name__ == "__main__":
     unittest.main()

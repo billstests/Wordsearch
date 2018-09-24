@@ -13,6 +13,10 @@ class Wordsearch:
         if len(self.keywords) == 0:
             return False
         
+        #Grid must not be an empty list
+        if len(self.grid) == 0:
+            return False
+        
         #Make sure keywords consist entirely of chars in [A-Z]
         keywordsAreAllCaps = self.__CheckKeywordsConsistOfAllCaps()
         if (not keywordsAreAllCaps):
