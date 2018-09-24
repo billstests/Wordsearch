@@ -81,6 +81,14 @@ class WordsearchInputTests(unittest.TestCase):
         self.assertEqual(False, self.wsearch.isValid())
         
     
+    #test that keywords can fit in the square grid, else the data is not considered valid
+    def test_wordsearch_data_not_valid_if_keywords_dont_fit_in_grid(self):
+        myKeywords = ["KEYA", "KEYB", "KEYCA"]
+        myGrid = [['A','B','C','X'], ['E','F','G','Y'], ['E','F','G','Z'],['E','F','G','Z']]
+        self.wsearch.loadData(keywords = myKeywords, grid = myGrid)
+        self.assertEqual(False, self.wsearch.isValid())
+        
+    
         
 if __name__ == "__main__":
     unittest.main()

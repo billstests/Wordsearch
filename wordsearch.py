@@ -29,10 +29,17 @@ class Wordsearch:
             return False
         
         #make sure each element in grid is a single char in [A-Z]
-        for row in self.grid:
-            for c in row:
-                if not (len(c) == 1 and c.isupper()):
-                    return False
+        gridIsSingleElementsAtoZ = self.__CheckGridConsistsOnlySingleElementsAtoZ()
+        if (not gridIsSingleElementsAtoZ):
+            return False
+        
+        
+        #make sure keywords fit into grid
+        #note that if the grid is a square, the largest keyword must at most the length of a row for this condition to hold
+        keywordMaxLength = max([len(k) for k in self.keywords])
+        if keywordMaxLength > rowLength:
+            return False
+        
         
         #Make sure keywords consist entirely of chars in [A-Z]
         keywordsAreAllCaps = self.__CheckKeywordsConsistOfAllCaps()
@@ -51,5 +58,12 @@ class Wordsearch:
         for kword in self.keywords:
             for c in kword:
                 if not c.isupper():
+                    return False
+        return True
+    
+    def __CheckGridConsistsOnlySingleElementsAtoZ(self):
+        for row in self.grid:
+            for c in row:
+                if not (len(c) == 1 and c.isupper()):
                     return False
         return True
