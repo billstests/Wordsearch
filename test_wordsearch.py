@@ -63,6 +63,13 @@ class WordsearchInputTests(unittest.TestCase):
         self.wsearch.loadData(keywords=myKeywords, grid=myGrid)
         self.assertEqual(False, self.wsearch.isValid())
         
+    #tests that the row count and column count are equal (that it is a square grid)
+    def test_wordsearch_data_not_valid_if_row_count_not_same_as_col_count(self):
+        myKeywords = ["KEYONE", "KEYTWO"]
+        myGrid = [['A','B','C'],['E','F','G']]
+        self.wsearch.loadData(keywords=myKeywords, grid=myGrid)
+        self.assertEqual(False, self.wsearch.isValid())
+        
     
         
 if __name__ == "__main__":
