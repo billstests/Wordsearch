@@ -55,6 +55,13 @@ class WordsearchInputTests(unittest.TestCase):
         myGrid = []
         self.wsearch.loadData(keywords = myKeywords, grid = myGrid)
         self.assertEqual(False, self.wsearch.isValid())
+       
+    #tests that that each grid rows of unequal length are not considered valid
+    def test_wordsearch_data_not_valid_if_grid_rows_not_same_length(self):
+        myKeywords = ["KEYWORDONE","KEYWORDTWO"]
+        myGrid = [['A','B'],['D','E','F']]
+        self.wsearch.loadData(keywords=myKeywords, grid=myGrid)
+        self.assertEqual(False, self.wsearch.isValid())
         
     
         

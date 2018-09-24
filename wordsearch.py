@@ -17,6 +17,12 @@ class Wordsearch:
         if len(self.grid) == 0:
             return False
         
+        #All grid rows must be equal length
+        rowLength = len(self.grid[0])
+        for row in self.grid:
+            if len(row) != rowLength:
+                return False
+        
         #Make sure keywords consist entirely of chars in [A-Z]
         keywordsAreAllCaps = self.__CheckKeywordsConsistOfAllCaps()
         if (not keywordsAreAllCaps):
