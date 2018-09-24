@@ -3,13 +3,29 @@ from wordsearch import *
 
 class WordsearchInputTests(unittest.TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        #This method opens a wordsearch example and parses/stores the keywords and the grid of characters
+        f = open("wordsearchEx1.txt",'r')
+        lines = f.readlines()
+        
+        #store keywords in class variable that setUp method can access
+        cls.keywords = lines[0].replace("\n","").split(",")
+        
+        grid = []
+        for row in lines[1:]:
+            grid.append(row.replace("\n","").split(","))
+        
+        #store grid in class variable that setUp method can access
+        cls.grid = grid
+        
     def setUp(self):
         self.wsearch = Wordsearch("")
+        self.wsearch.loadData(keywords=WordsearchInputTests.keywords.copy(), grid=WordsearchInputTests.grid.copy())
         
     #results should be an empty dictionary that will later be filled with the solutions. 
     #The solutions to the word puzzle consists of the words as keys and lists of ordered paris as values    
     def test_initial_results_should_be_empty_dict(self):
-        self.wsearch = Wordsearch("")
         self.assertEqual(dict(),self.wsearch.results)
 
     #Test ability to load in and store a list of keywords data in wordsearch object
@@ -88,7 +104,10 @@ class WordsearchInputTests(unittest.TestCase):
         self.wsearch.loadData(keywords = myKeywords, grid = myGrid)
         self.assertEqual(False, self.wsearch.isValid())
         
-    
+    #test that the example test file is valid (wordsearchEx1.txt, which is loaded by default)
+    def test_wordsearch_data_from_example1_is_valid(self):
+        self.assertEqual(True, self.wsearch.isValid())
+        
         
 if __name__ == "__main__":
     unittest.main()

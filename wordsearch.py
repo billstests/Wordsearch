@@ -35,7 +35,7 @@ class Wordsearch:
         
         
         #make sure keywords fit into grid
-        #note that if the grid is a square, the largest keyword must at most the length of a row for this condition to hold
+        #note that if the grid is a square, the largest keyword must be at most the length of a row for this condition to hold
         keywordMaxLength = max([len(k) for k in self.keywords])
         if keywordMaxLength > rowLength:
             return False
