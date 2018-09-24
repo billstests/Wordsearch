@@ -14,9 +14,16 @@ class Wordsearch:
             return False
         
         #Make sure keywords consist entirely of chars in [A-Z]
+        keywordsAreAllCaps = self.__CheckKeywordsConsistOfAllCaps()
+        if (not keywordsAreAllCaps):
+            return False
+        
+        return True
+    
+    #Validation tests helper functions:
+    def __CheckKeywordsConsistOfAllCaps(self):
         for kword in self.keywords:
             for c in kword:
                 if not c.isupper():
                     return False
-        
         return True
