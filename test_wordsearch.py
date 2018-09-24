@@ -23,6 +23,17 @@ class WordsearchInputTests(unittest.TestCase):
         myGrid = [['A','B','C'],['E','F','G'],['H','I','J']]
         wsearch.loadData(grid = myGrid)
         self.assertEqual(myGrid,wsearch.grid)
+    
+    #####################################################################
+    #--tests to check validity of data (keyword and character grid)
+    
+    #test that if an empty list of keywords is loaded, that the data is considered not valid
+    def test_wordsearch_data_not_valid_if_keywords_is_empty_list(self):
+        wsearch=Wordsearch("")
+        myKeywords =[]
+        wsearch.loadData(keywords=myKeywords)
+        isDataValid = wsearch.isValid()
+        self.assertEqual(False, isDataValid)
         
 if __name__ == "__main__":
     unittest.main()
