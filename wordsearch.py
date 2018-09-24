@@ -8,6 +8,13 @@ class Wordsearch:
         self.keywords = keywords
         self.grid = grid
         
+    def parse(self, lines):
+        keywords = lines[0].replace("\n","").split(",")
+        grid = []
+        for row in lines[1:]:
+            grid.append(row.replace("\n","").split(","))
+        return keywords, grid
+        
     def isValid(self):
         #There must be keywords to search for to be valid
         if len(self.keywords) == 0:

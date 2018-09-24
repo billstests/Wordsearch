@@ -8,6 +8,7 @@ class WordsearchInputTests(unittest.TestCase):
         #This method opens a wordsearch example and parses/stores the keywords and the grid of characters
         f = open("wordsearchEx1.txt",'r')
         lines = f.readlines()
+        f.close()
         
         #store keywords in class variable that setUp method can access
         cls.keywords = lines[0].replace("\n","").split(",")
@@ -108,6 +109,26 @@ class WordsearchInputTests(unittest.TestCase):
     def test_wordsearch_data_from_example1_is_valid(self):
         self.assertEqual(True, self.wsearch.isValid())
         
+    #####################################################################
+    #--tests for loading an parsing an external file
+    
+    #test that the wordsearch parse method gives the same result as in our setUpClass
+    def test_wordsearch_parse_example_file(self):
+        f = open("wordsearchEx1.txt",'r')
+        lines = f.readlines()
+        f.close()
+        myKeywords, myGrid = self.wsearch.parse(lines)
         
+        #myKeywords and myGrid should be the same values as values in setUpClass
+        for kw in self.wsearch.keywords:
+            if not (kw in myKeywords):
+                self.fail()
+                
+        for i in range(len(self.wsearch.grid)):
+            for j in range(len(self.wsearch.grid[i])):
+                if self.wsearch.grid[i][j] != myGrid[i][j]:
+                    self.fail()
+        
+    
 if __name__ == "__main__":
     unittest.main()
