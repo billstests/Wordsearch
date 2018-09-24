@@ -43,6 +43,10 @@ class WordsearchInputTests(unittest.TestCase):
             self.wsearch.loadData(keywords = myKeywords)
             self.assertEqual(False, self.wsearch.isValid())
 
+    def test_wordsearch_data_not_valid_if_keyword_less_than_two_chars(self):
+        myKeywords = ["KEYWORDONE", "KEYWORDTWO", "K"]
+        self.wsearch.loadData(keywords = myKeywords)
+        self.assertEqual(False, self.wsearch.isValid())
         
 if __name__ == "__main__":
     unittest.main()

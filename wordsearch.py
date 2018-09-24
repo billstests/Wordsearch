@@ -18,6 +18,11 @@ class Wordsearch:
         if (not keywordsAreAllCaps):
             return False
         
+        #Make sure keywords are at least two chars long
+        for kword in self.keywords:
+            if len(kword) < 2:
+                return False
+        
         return True
     
     #Validation tests helper functions:
