@@ -3,7 +3,7 @@ from wordsearch import *
 class WordsearchSolver:
     def __init__(self, wordsearch):
         self.wordsearch = wordsearch
-        self.directions = {"UP":(0,-1), "DOWN":(0,1), "LEFT":(-1,0), "RIGHT":(1,0), "UPLEFT":(-1,-1)}
+        self.directions = {"UP":(0,-1), "DOWN":(0,1), "LEFT":(-1,0), "RIGHT":(1,0), "UPLEFT":(-1,-1), "UPRIGHT":(1,-1)}
         
     def solve(self):
         if not self.wordsearch.isValid():
