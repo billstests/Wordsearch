@@ -6,6 +6,12 @@ class WordsearchSolver:
         self.directions = {"UP":(0,-1), "DOWN":(0,1), "LEFT":(-1,0), "RIGHT":(1,0), "UPLEFT":(-1,-1), "UPRIGHT":(1,-1),
                            "DOWNLEFT":(-1,1), "DOWNRIGHT":(1,1)}
         
+    #print out the wordsearch solution: the keywords and their respective coordinates
+    def printSolution(self):
+        resultsStr = self.generateSolutionOutput()
+        print(resultsStr)
+        
+    #generate the solution string consisting of the keywords and their coordinates
     def generateSolutionOutput(self):
         self.solve()
         results = self.wordsearch.results.items()
@@ -21,7 +27,8 @@ class WordsearchSolver:
             if i < len(coordList)-1:
                 coordStr += ","
         return coordStr
-        
+    
+    #fill the wordsearch results dictionary with the letter coordinates
     def solve(self):
         if not self.wordsearch.isValid():
             raise ValueError("Wordsearch must return True for isValid() to be able to solve")
@@ -38,7 +45,7 @@ class WordsearchSolver:
                 break
         return found
     
-        
+    #search for a keyword in the grid in a given search direction    
     def search(self, keyword, direction):
         #dx: x itteration 'direction'.  Positive moves the search to the right, negative moves it left
         #dy: y itteration 'direction'. Positive moves the search down and negative moves it up

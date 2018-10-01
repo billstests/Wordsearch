@@ -83,7 +83,7 @@ class WordsearchSolverTests(unittest.TestCase):
         result = self.wsSolver.searchAllDirections(keyword="KIRK")
         knownResult = [(4,7),(3,7),(2,7),(1,7)]
         self.assertEqual(result, knownResult)
-        
+    
     def test_wordsearchsolve_solve_puzzle_and_fill_wordsearch_results_with_solution(self):
         self.wsSolver.solve()
         theResults = self.wsSolver.wordsearch.results
