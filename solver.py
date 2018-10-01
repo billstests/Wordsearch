@@ -19,6 +19,9 @@ class WordsearchSolver:
         if direction == "UP":
             dx = 0
             dy = -1
+        if direction == "DOWN":
+            dx = 0
+            dy = 1
         grid = self.wordsearch.grid
         firstLetter = keyword[0]
         length = len(keyword)
