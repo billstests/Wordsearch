@@ -32,9 +32,15 @@ class WordsearchSolverTests(unittest.TestCase):
         self.assertEqual(result, knownResult)
         
     #tests that wordsearchsolver can find a word by searching horizontal to the left and returns the correct list of the letter coordinates
-    def test_wordsearchsolve_wearch_horizontal_left(self):
+    def test_wordsearchsolve_search_horizontal_left(self):
         result = self.wsSolver.search(keyword="KIRK", direction="LEFT")
         knownResult = [(4,7),(3,7),(2,7),(1,7)]
+        self.assertEqual(result, knownResult)
+        
+    #tests that wordsearchsolver can find a word by searching horizontal to the left and returns the correct list of the letter coordinates
+    def test_wordsearchsolve_search_vertical_up(self):
+        result = self.wsSolver.search(keyword="KHAN", direction="UP")
+        knownResult = [(5,9),(5,8),(5,7),(5,6)]
         self.assertEqual(result, knownResult)
     
 if __name__ == "__main__":
