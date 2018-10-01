@@ -67,5 +67,11 @@ class WordsearchSolverTests(unittest.TestCase):
         knownResult = [(4,0),(3,1),(2,2),(1,3),(0,4)]
         self.assertEqual(result, knownResult)
     
+    #tests that wordsearchsolver can find a word by searching down and to the right and returns the correct list of the letter coordinates
+    def test_wordsearchsolve_search_vertical_down_and_horizontally_right(self):
+        result = self.wsSolver.search(keyword="SPOCK", direction="DOWNRIGHT")
+        knownResult = [(2,1),(3,2),(4,3),(5,4),(6,5)]
+        self.assertEqual(result, knownResult)
+    
 if __name__ == "__main__":
     unittest.main()
