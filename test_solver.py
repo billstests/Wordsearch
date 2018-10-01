@@ -43,7 +43,7 @@ class WordsearchSolverTests(unittest.TestCase):
         knownResult = [(5,9),(5,8),(5,7),(5,6)]
         self.assertEqual(result, knownResult)
         
-    #tests that wordsearchsolver can find a word by searching vertical and up and returns the correct list of the letter coordinates
+    #tests that wordsearchsolver can find a word by searching vertical and down and returns the correct list of the letter coordinates
     def test_wordsearchsolve_search_vertical_down(self):
         result = self.wsSolver.search(keyword="BONES", direction="DOWN")
         knownResult = [(0,6),(0,7),(0,8),(0,9),(0,10)]

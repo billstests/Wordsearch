@@ -3,6 +3,7 @@ from wordsearch import *
 class WordsearchSolver:
     def __init__(self, wordsearch):
         self.wordsearch = wordsearch
+        self.directions = {"UP":(0,-1), "DOWN":(0,1), "LEFT":(-1,0), "RIGHT":(1,0)}
         
     def solve(self):
         if not self.wordsearch.isValid():
@@ -11,17 +12,9 @@ class WordsearchSolver:
 
     def search(self, keyword, direction):
         #dx: x itteration 'direction'.  Positive moves the search to the right, negative moves it left
-        dx=1
         #dy: y itteration 'direction'. Positive moves the search down and negative moves it up
-        dy=0                        
-        if direction == "LEFT":
-            dx = -1
-        if direction == "UP":
-            dx = 0
-            dy = -1
-        if direction == "DOWN":
-            dx = 0
-            dy = 1
+        dx,dy = self.directions[direction]
+        
         grid = self.wordsearch.grid
         firstLetter = keyword[0]
         length = len(keyword)
@@ -31,8 +24,6 @@ class WordsearchSolver:
             for j in range(N):
                     if self.__inBounds(j,i,length,dx,dy,N):       #test if search will stay in the bounds of the grid
                         if firstLetter == grid[i][j]:
-                            #if direction == "UP":
-                            #    print("HIIIIIII", j,i)
                             chars = [grid[i+dy*u][j+dx*u] for u in range(length)] 
                             if "".join(chars) == keyword:
                                 result = [(j+dx*u,i+dy*u) for u in range(length)]
