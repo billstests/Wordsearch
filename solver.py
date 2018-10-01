@@ -9,7 +9,10 @@ class WordsearchSolver:
     def solve(self):
         if not self.wordsearch.isValid():
             raise ValueError("Wordsearch must return True for isValid() to be able to solve")
-        return
+        #Find results for all keywords
+        for keyword in self.wordsearch.keywords:
+            result = self.searchAllDirections(keyword)
+            self.wordsearch.results.update({keyword:result})
     
     #search for a keyword in all directions.  Return the coordinates if it is found (else return an empty list)
     def searchAllDirections(self, keyword):
