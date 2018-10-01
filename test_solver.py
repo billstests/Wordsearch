@@ -21,6 +21,13 @@ class WordsearchSolverTests(unittest.TestCase):
         except ValueError:
             return
         self.fail()
+        
+    def test_wordsearchsolve_search_horizontal_right(self):
+        wsearch = Wordsearch("wordsearchEx1.txt")
+        wsSolver = WordsearchSolver(wsearch)
+        result = wsSolver.search(keyword="SCOTTY")
+        knownResult = [(0,5),(1,5),(2,5),(3,5),(4,5),(5,5)]
+        self.assertEqual(result, knownResult)
     
 if __name__ == "__main__":
     unittest.main()
