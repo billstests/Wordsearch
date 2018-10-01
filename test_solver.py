@@ -48,6 +48,12 @@ class WordsearchSolverTests(unittest.TestCase):
         result = self.wsSolver.search(keyword="BONES", direction="DOWN")
         knownResult = [(0,6),(0,7),(0,8),(0,9),(0,10)]
         self.assertEqual(result, knownResult)
+        
+    #tests that wordsearchsolver can find a word by searching up and to the left and returns the correct list of the letter coordinates
+    def test_wordsearchsolve_search_vertical_up_and_horizontally_left(self):
+        result = self.wsSolver.search(keyword="SULU", direction="UPLEFT")
+        knownResult = [(3,3),(2,2),(1,1),(0,0)]
+        self.assertEqual(result, knownResult)
     
 if __name__ == "__main__":
     unittest.main()
