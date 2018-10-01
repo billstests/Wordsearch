@@ -73,5 +73,16 @@ class WordsearchSolverTests(unittest.TestCase):
         knownResult = [(2,1),(3,2),(4,3),(5,4),(6,5)]
         self.assertEqual(result, knownResult)
     
+    #test that wordsearchsolver can find a word by searching all directions and return the correct list of the letter coordinates
+    def test_wordsearchsolve_search_all_direction(self):
+        #Try with 2 different words
+        result = self.wsSolver.searchAllDirections(keyword="SPOCK")
+        knownResult = [(2,1),(3,2),(4,3),(5,4),(6,5)]
+        self.assertEqual(result, knownResult)
+        
+        result = self.wsSolver.searchAllDirections(keyword="KIRK")
+        knownResult = [(4,7),(3,7),(2,7),(1,7)]
+        self.assertEqual(result, knownResult)
+        
 if __name__ == "__main__":
     unittest.main()

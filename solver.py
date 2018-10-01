@@ -10,7 +10,15 @@ class WordsearchSolver:
         if not self.wordsearch.isValid():
             raise ValueError("Wordsearch must return True for isValid() to be able to solve")
         return
-
+    
+    #search for a keyword in all directions.  Return the coordinates if it is found (else return an empty list)
+    def searchAllDirections(self, keyword):
+        for direction in self.directions:
+            found = self.search(keyword, direction)
+            if found:
+                break
+        return found
+        
     def search(self, keyword, direction):
         #dx: x itteration 'direction'.  Positive moves the search to the right, negative moves it left
         #dy: y itteration 'direction'. Positive moves the search down and negative moves it up
