@@ -25,8 +25,15 @@ class WordsearchSolverTests(unittest.TestCase):
     def test_wordsearchsolve_search_horizontal_right(self):
         wsearch = Wordsearch("wordsearchEx1.txt")
         wsSolver = WordsearchSolver(wsearch)
-        result = wsSolver.search(keyword="SCOTTY")
+        result = wsSolver.search(keyword="SCOTTY", direction="RIGHT")
         knownResult = [(0,5),(1,5),(2,5),(3,5),(4,5),(5,5)]
+        self.assertEqual(result, knownResult)
+        
+    def test_wordsearchsolve_wearch_horizontal_left(self):
+        wsearch = Wordsearch("wordsearchEx1.txt")
+        wsSolver = WordsearchSolver(wsearch)
+        result = wsSolver.search(keyword="KIRK", direction="LEFT")
+        knownResult = [(4,7),(3,7),(2,7),(1,7)]
         self.assertEqual(result, knownResult)
     
 if __name__ == "__main__":
