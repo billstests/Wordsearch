@@ -10,6 +10,10 @@ class WordsearchSolver:
         return
 
     def search(self, keyword, direction):
+        #dx: x itteration 'direction'.  Positive moves the search to the right, negative moves it left
+        dx=1                        
+        if direction == "LEFT":
+            dx = -1
         grid = self.wordsearch.grid
         firstLetter = keyword[0]
         length = len(keyword)
@@ -17,22 +21,19 @@ class WordsearchSolver:
         N = len(grid)       #length of square grid
         for i in range(N):
             for j in range(N):
-                if direction == "RIGHT":
-                    if j+(length-1) < N:                #test if search will stay in the bounds of the grid (going right)
+                    if self.__inBounds(j,length,dx,N):       #test if search will stay in the bounds of the grid
                         if firstLetter == grid[i][j]:
-                            chars = [grid[i][j+u] for u in range(length)] 
+                            chars = [grid[i][j+dx*u] for u in range(length)] 
                             if "".join(chars) == keyword:
-                                result = [(j+u,i) for u in range(length)]
-                                break
-                if direction == "LEFT":
-                    if j-(length-1) >= 0:               #test if search will stay in tje bounds of the grid (going left)
-                        if firstLetter == grid[i][j]:
-                            chars = [grid[i][j-u] for u in range(length)] 
-                            if "".join(chars) == keyword:
-                                result = [(j-u,i) for u in range(length)]
+                                result = [(j+dx*u,i) for u in range(length)]
                                 break
         return result
                         
-                    
+    #tests if the search will stay in bounds.
+    def __inBounds(self, x_i, L, dx, gridLength):
+        BC_x1 = (x_i+(L-1)*dx >=0)           #boundary condition 1 for x-direction (horizontal)
+        BC_x2 = (x_i+(L-1)*dx < gridLength)  #boundary condition 2 for x-direction (horizontal)
+        return BC_x1 and BC_x2
+        
                 
                 
