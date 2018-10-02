@@ -74,6 +74,46 @@ class WordsearchSolver:
         BC_y2 = (y_i+(L-1)*dy < gridLength)         #boundary condition 2 for y-direction (vertical)
         return BC_x1 and BC_x2 and BC_y1 and BC_y2
 
+    def fastSearch(self, keyword):
+        #create flattened grid if it doesn't exist
+        if not hasattr(self,"line_grid"):
+            self.flattenGrid()
+            
+        #dictionary for mapping oppositie directions to the correct line_grid that should be used for the search
+        oppositeDirection = {"LEFT":"RIGHT", "DOWNLEFT":"UPRIGHT", "UP":"DOWN", "DOWNRIGHT":"UPLEFT"}
+        
+        #search directions in line_grid.keys for the keyword
+        for direction in self.line_grid.keys():
+            kw_index = self.line_grid[direction].find(keyword)                  #get index where keyword occurs
+            if kw_index > -1:                                                   #if the keyword is found the index will be greater than -1
+                return self.__getCoordList(keyword, direction, kw_index)
+        
+        #search opposite directions of the lin_grid.keys for the keyword
+        for direction in ["LEFT"]:
+            kw_index = self.line_grid[oppositeDirection[direction]].find(keyword[::-1])  #look to see if reverse word is in line_grid
+            if kw_index > -1:
+                return self.__getCoordList(keyword, direction, kw_index)
+    
+    def __getCoordList(self, keyword, direction, kw_index):
+        d = len(self.wordsearch.grid)
+        L = len(keyword)
+        dx,dy = self.directions[direction]
+        searchDirection = direction
+
+        result = []
+
+        #offset is used so we can get proper coordinates for reverse searches
+        offset = (0,0)                  
+        if not (direction in self.line_grid.keys()):
+            offset = (-dx*(L-1),-dy*(L-1))
+                
+        if direction in ["LEFT","RIGHT"]:
+            row = kw_index//d
+            col_i = kw_index%d
+            for j in range(L):
+                result.append((col_i+dx*j+offset[0],row+offset[1]))
+            return result
+        
     #flatten the grid by sweeping different directions and store them in memory to be searched for keywords
     def flattenGrid(self):
         grid = self.wordsearch.grid

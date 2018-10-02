@@ -167,6 +167,18 @@ class WordsearchSolverTests(unittest.TestCase):
         #flatten the grid into a string consiting of all the up-left diagonals (start in top right corner)
         wsSolver.flattenGrid()
         self.assertEqual(wsSolver.line_grid["DOWN"],"ABCDEFGHI")
+
+    #test fastsearch on known result for word that is in the horizontal-right and horizontal-left orientation        
+    def test_wordsearchsolve_fastsearch_fastSearch_right_and_left(self):
+        #right search
+        result = self.wsSolver.fastSearch(keyword="SCOTTY")
+        knownResult = [(0,5),(1,5),(2,5),(3,5),(4,5),(5,5)]
+        self.assertEqual(result, knownResult)
+        
+        #left search
+        result = self.wsSolver.fastSearch(keyword="KIRK")
+        knownResult = [(4,7),(3,7),(2,7),(1,7)]
+        self.assertEqual(result, knownResult)
         
         
 if __name__ == "__main__":
