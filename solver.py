@@ -29,12 +29,18 @@ class WordsearchSolver:
         return coordStr
     
     #fill the wordsearch results dictionary with the letter coordinates
-    def solve(self):
+    def solve(self, useFastSearch=False):
         if not self.wordsearch.isValid():
             raise ValueError("Wordsearch must return True for isValid() to be able to solve")
+        
+        #clear results
+        self.wordsearch.results = dict()
         #Find results for all keywords
         for keyword in self.wordsearch.keywords:
-            result = self.searchAllDirections(keyword)
+            if useFastSearch:                       #search using fastSearch method.  Takes more memory but is faster
+                result = self.fastSearch(keyword)
+            else:
+                result = self.searchAllDirections(keyword)
             self.wordsearch.results.update({keyword:result})
     
     #search for a keyword in all directions.  Return the coordinates if it is found (else return an empty list)
@@ -74,6 +80,9 @@ class WordsearchSolver:
         BC_y2 = (y_i+(L-1)*dy < gridLength)         #boundary condition 2 for y-direction (vertical)
         return BC_x1 and BC_x2 and BC_y1 and BC_y2
 
+    #Alternative method for searching keywords in grid.  Flattens the grid into lines derived from iterating over a certain direction
+    # and saves that to memory.  Then the keywords are searched through these lines and the index is found where the keyword is.
+    # This index is then used to return the list of coords that make up the characters of the word.
     def fastSearch(self, keyword):
         #create flattened grid if it doesn't exist
         if not hasattr(self,"line_grid"):

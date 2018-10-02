@@ -216,5 +216,18 @@ class WordsearchSolverTests(unittest.TestCase):
         knownResult = [(3,3),(2,2),(1,1),(0,0)]
         self.assertEqual(result, knownResult)
         
+    #test that fastsearch and the original search method give the same results for the example data
+    def test_wordsearchsolve_fastsearch_fastSearch_solve_compared_to_original_search_solve_should_be_the_same(self):
+        #use original search method to solve wordpuzzle
+        self.wsSolver.solve(useFastSearch=False)                    
+        resultsOriginal = self.wsSolver.wordsearch.results.copy()
+        
+        #use fastSearch method to solve wordpuzzle
+        self.wsSolver.solve(useFastSearch=True)
+        resultsFastSearch = self.wsSolver.wordsearch.results.copy()
+        
+        #make sure they are the same solutions
+        self.assertEqual(resultsOriginal,resultsFastSearch)
+        
 if __name__ == "__main__":
     unittest.main()
