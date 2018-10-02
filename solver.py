@@ -103,6 +103,23 @@ class WordsearchSolver:
         self.line_grid.update({"UPRIGHT":upRight})
         self.line_grid_coords.update({"UPRIGHT":upRightCoords});
         
+        ##########
+        #up=left diagonal sweep
+        ##########
+        upLeft = ""
+        upLeftCoords = []
+        for N in range(2*(d-1)+1):          #iterate over right/bottom grid boundary
+            k=N*(1-N//d)+(2*(d-1)-N)*(N//d)
+            q=N//d
+            r=N%d
+            y0=r*(1-q)+(d-1)*q
+            x0=(d-1)-q*(r+1)
+            for i in range(k+1):
+                upLeft += grid[y0-i][x0-i]
+                upLeftCoords.append((x0-i,y0-i))
+        self.line_grid.update({"UPLEFT":upLeft})
+        self.line_grid_coords.update({"UPLEFT":upLeftCoords})
+        
         
         
                 
