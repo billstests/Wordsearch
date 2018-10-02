@@ -204,6 +204,17 @@ class WordsearchSolverTests(unittest.TestCase):
         knownResult = [(4,0),(3,1),(2,2),(1,3),(0,4)]
         self.assertEqual(result, knownResult)
         
+    #test fastsearch on known result for word that is in the up-left diagonal and down-right diagonal directions        
+    def test_wordsearchsolve_fastsearch_fastSearch_upleft_and_downright(self):
+        #down-right search
+        result = self.wsSolver.fastSearch(keyword="SPOCK")
+        knownResult = [(2,1),(3,2),(4,3),(5,4),(6,5)]
+        self.assertEqual(result, knownResult)
+        
+        #up-left search
+        result = self.wsSolver.fastSearch(keyword="SULU")
+        knownResult = [(3,3),(2,2),(1,1),(0,0)]
+        self.assertEqual(result, knownResult)
         
 if __name__ == "__main__":
     unittest.main()
