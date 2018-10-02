@@ -154,6 +154,20 @@ class WordsearchSolverTests(unittest.TestCase):
         #flatten the grid into a string consiting of all the up-left diagonals (start in top right corner)
         wsSolver.flattenGrid()
         self.assertEqual(wsSolver.line_grid["RIGHT"],"ABCDEFGHI")
+    
+    def test_wordsearchsolve_fastsearch_flatten_grid_using_down_vertical_concatenation(self):
+        wsearch = Wordsearch("")
+        #make a grid that is easy to check that it is 'flattened' correctly
+        grid1 = [["A","D","G"],
+                 ["B","E","H"],
+                 ["C","F","I"]]
+        wsearch.loadData(keywords=["KW","QW"], grid = grid1)
+        wsSolver = WordsearchSolver(wsearch)
+        
+        #flatten the grid into a string consiting of all the up-left diagonals (start in top right corner)
+        wsSolver.flattenGrid()
+        self.assertEqual(wsSolver.line_grid["DOWN"],"ABCDEFGHI")
+        
         
 if __name__ == "__main__":
     unittest.main()

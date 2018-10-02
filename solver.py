@@ -74,6 +74,7 @@ class WordsearchSolver:
         BC_y2 = (y_i+(L-1)*dy < gridLength)         #boundary condition 2 for y-direction (vertical)
         return BC_x1 and BC_x2 and BC_y1 and BC_y2
 
+    #flatten the grid by sweeping different directions and store them in memory to be searched for keywords
     def flattenGrid(self):
         grid = self.wordsearch.grid
         d = len(grid) #divisor
@@ -129,6 +130,15 @@ class WordsearchSolver:
             right += "".join(grid[i])
         self.right = right
         self.line_grid.update({"RIGHT":right})
+        
+        ###########
+        #down-vertical sweep
+        ###########
+        #Note: nothing added to line_grid_coords since this direction is easy to invert (given a character index)
+        down = ""
+        for j in range(d):
+            down += "".join([grid[i][j] for i in range(d)])
+        self.line_grid.update({"DOWN":down})
         
         
         
