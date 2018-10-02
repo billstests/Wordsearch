@@ -180,6 +180,18 @@ class WordsearchSolverTests(unittest.TestCase):
         knownResult = [(4,7),(3,7),(2,7),(1,7)]
         self.assertEqual(result, knownResult)
         
+    #test fastsearch on known result for word that is in the veritical-up and vertical-down directions        
+    def test_wordsearchsolve_fastsearch_fastSearch_up_and_down(self):
+        #up search
+        result = self.wsSolver.fastSearch(keyword="KHAN")
+        knownResult = [(5,9),(5,8),(5,7),(5,6)]
+        self.assertEqual(result, knownResult)
+        
+        #down search
+        result = self.wsSolver.fastSearch(keyword="BONES")
+        knownResult = [(0,6),(0,7),(0,8),(0,9),(0,10)]
+        self.assertEqual(result, knownResult)
+        
         
 if __name__ == "__main__":
     unittest.main()
