@@ -4,7 +4,7 @@ from solver import *
 
 
 class WordsearchSolverTests(unittest.TestCase):
-        
+    
     def setUp(self):
         self.wsearch = Wordsearch("wordsearchEx1.txt")
         self.wsSolver = WordsearchSolver(self.wsearch)
@@ -106,6 +106,26 @@ class WordsearchSolverTests(unittest.TestCase):
         expectedOutput+="UHURA: (4,0),(3,1),(2,2),(1,3),(0,4)\n"
         myOutput = self.wsSolver.generateSolutionOutput()
         self.assertEqual(myOutput,expectedOutput)
+        
+    ############################################################################
+    #Below tests deal with implementing a faster method for searching for wonds in the wordsearch
+    
+    #fastsearch will implement a faster way to search by flattening the grid into a line obtained by
+    #itterating through the grid in a certain search direction  
+    def test_wordsearchsolve_fastsearch_flatten_grid_using_up_right_diagonal_concatenation(self):
+        wsearch = Wordsearch("")
+        #make a grid that is easy to check that it is 'flattened' correctly
+        grid1 = [["A","C","F"],
+                 ["B","E","H"],
+                 ["D","G","I"]]
+        wsearch.loadData(keywords=["KW","QW"], grid = grid1)
+        wsSolver = WordsearchSolver(wsearch)
+        
+        #flatten the grid into a string consiting of all the up-right diagonals (start in top left corner)
+        wsSolver.flattenGrid()
+        self.assertEqual(wsSolver.line_grid["UPRIGHT"],"ABCDEFGHI")
+        #check that the coordinates are stored correctly as well.  These are stored because inverting the flattened diagonals is not as trivial as strickly horizontal or vertical directions
+        self.assertEqual(wsSolver.line_grid_coords["UPRIGHT"],[(0,0),(0,1),(1,0),(0,2),(1,1),(2,0),(1,2),(2,1),(2,2)])
         
 if __name__ == "__main__":
     unittest.main()

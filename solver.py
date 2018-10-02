@@ -17,10 +17,10 @@ class WordsearchSolver:
         results = self.wordsearch.results.items()
         solutionOutput = ""
         for keyword, coords in results:
-            solutionOutput = solutionOutput + keyword + ": " + self.coordListToStr(coords) + "\n"
+            solutionOutput = solutionOutput + keyword + ": " + self.__coordListToStr(coords) + "\n"
         return solutionOutput
     
-    def coordListToStr(self, coordList):
+    def __coordListToStr(self, coordList):
         coordStr = ""
         for i, c in enumerate(coordList):
             coordStr += str(c).replace(" ","")
@@ -47,8 +47,8 @@ class WordsearchSolver:
     
     #search for a keyword in the grid in a given search direction    
     def search(self, keyword, direction):
-        #dx: x itteration 'direction'.  Positive moves the search to the right, negative moves it left
-        #dy: y itteration 'direction'. Positive moves the search down and negative moves it up
+        #dx: x iteration 'direction'.  Positive moves the search to the right, negative moves it left
+        #dy: y iteration 'direction'. Positive moves the search down and negative moves it up
         dx,dy = self.directions[direction]
         
         grid = self.wordsearch.grid
@@ -73,6 +73,37 @@ class WordsearchSolver:
         BC_y1 = (y_i+(L-1)*dy >= 0)                 #boundary condition 1 for y-direction (vertical)
         BC_y2 = (y_i+(L-1)*dy < gridLength)         #boundary condition 2 for y-direction (vertical)
         return BC_x1 and BC_x2 and BC_y1 and BC_y2
+
+    def flattenGrid(self):
+        grid = self.wordsearch.grid
+        d = len(grid) #divisor
+        
+        #create dictionaries to store the linearized path through the grid with the sweep direction as the key
+        self.line_grid = dict()
+        
+        #line_grid_coords stores the (x,y) coordinates for a character in the corresponding flattened grid.
+        #This is only done when the sweep direction is diagonal, because horizontal and vertical sweeps are
+        #easy to invert and find the coordinate
+        self.line_grid_coords = dict()
+        
+        #########
+        #up-right diagonal sweep
+        #########
+        upRight = ""
+        upRightCoords = []
+        for N in range(2*(d-1)+1):            #iterate over left/bottom grid boundary
+            k=N*(1-N//d)+(2*(d-1)-N)*(N//d)   #a given diagonal's length
+            q=N//d                            #quotient
+            r=N%d                             #remainder
+            y0=r*(1-q)+(d-1)*q                #starting y coordinate of diagonal
+            x0=q*(r+1)                        #starting x coordinate of diagonal
+            for i in range(k+1):              #concatenate along diagonal and append corresponding coordinates
+                upRight += grid[y0-i][x0+i]
+                upRightCoords.append((x0+i,y0-i))
+        self.line_grid.update({"UPRIGHT":upRight})
+        self.line_grid_coords.update({"UPRIGHT":upRightCoords});
+        
+        
         
                 
                 
