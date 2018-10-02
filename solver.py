@@ -104,7 +104,7 @@ class WordsearchSolver:
         self.line_grid_coords.update({"UPRIGHT":upRightCoords});
         
         ##########
-        #up=left diagonal sweep
+        #up-left diagonal sweep
         ##########
         upLeft = ""
         upLeftCoords = []
@@ -119,6 +119,16 @@ class WordsearchSolver:
                 upLeftCoords.append((x0-i,y0-i))
         self.line_grid.update({"UPLEFT":upLeft})
         self.line_grid_coords.update({"UPLEFT":upLeftCoords})
+        
+        ###########
+        #right-horizontal sweep
+        ###########
+        #Note: nothing added to line_grid_coords since this direction is easy to invert (given a character index)
+        right = ""
+        for i in range(d):
+            right += "".join(grid[i])
+        self.right = right
+        self.line_grid.update({"RIGHT":right})
         
         
         

@@ -142,5 +142,18 @@ class WordsearchSolverTests(unittest.TestCase):
         #check that the coordinates are stored correctly as well.  These are stored because inverting the flattened diagonals is not as trivial as strickly horizontal or vertical directions
         self.assertEqual(wsSolver.line_grid_coords["UPLEFT"],[(2,0),(2,1),(1,0),(2,2),(1,1),(0,0),(1,2),(0,1),(0,2)])
         
+    def test_wordsearchsolve_fastsearch_flatten_grid_using_up_right_horizontal_concatenation(self):
+        wsearch = Wordsearch("")
+        #make a grid that is easy to check that it is 'flattened' correctly
+        grid1 = [["A","B","C"],
+                 ["D","E","F"],
+                 ["G","H","I"]]
+        wsearch.loadData(keywords=["KW","QW"], grid = grid1)
+        wsSolver = WordsearchSolver(wsearch)
+        
+        #flatten the grid into a string consiting of all the up-left diagonals (start in top right corner)
+        wsSolver.flattenGrid()
+        self.assertEqual(wsSolver.line_grid["RIGHT"],"ABCDEFGHI")
+        
 if __name__ == "__main__":
     unittest.main()
