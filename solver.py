@@ -89,7 +89,7 @@ class WordsearchSolver:
                 return self.__getCoordList(keyword, direction, kw_index)
         
         #search opposite directions of the lin_grid.keys for the keyword
-        for direction in ["LEFT", "UP"]:
+        for direction in ["LEFT", "UP", "DOWNLEFT"]:
             kw_index = self.line_grid[oppositeDirection[direction]].find(keyword[::-1])  #look to see if reverse word is in line_grid
             if kw_index > -1:
                 return self.__getCoordList(keyword, direction, kw_index)
@@ -98,8 +98,11 @@ class WordsearchSolver:
         d = len(self.wordsearch.grid)
         L = len(keyword)
         dx,dy = self.directions[direction]
-        searchDirection = direction
-
+        searchDirection = direction             #direction search should be in
+        #dictionary for mapping oppositie directions to the correct line_grid that should be used for the search
+        oppositeDirection = {"LEFT":"RIGHT", "DOWNLEFT":"UPRIGHT", "UP":"DOWN", "DOWNRIGHT":"UPLEFT"}
+        if direction in oppositeDirection.keys():
+            searchDirection = oppositeDirection[direction]
         result = []
 
         #offset is used so we can get proper coordinates for reverse searches
@@ -107,6 +110,12 @@ class WordsearchSolver:
         if not (direction in self.line_grid.keys()):
             offset = (-dx*(L-1),-dy*(L-1))
                 
+        if direction in ["UPRIGHT", "UPLEFT", "DOWNLEFT", "DOWNRIGHT"]:
+            for j in range(L):
+                x0,y0=self.line_grid_coords[searchDirection][kw_index]
+                result.append((x0+dx*j+offset[0],y0+dy*j+offset[1]))
+            return result
+    
         if direction in ["UP","DOWN"]:
             col = kw_index//d
             row_i = kw_index%d

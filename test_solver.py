@@ -191,6 +191,18 @@ class WordsearchSolverTests(unittest.TestCase):
         result = self.wsSolver.fastSearch(keyword="BONES")
         knownResult = [(0,6),(0,7),(0,8),(0,9),(0,10)]
         self.assertEqual(result, knownResult)
+
+    #test fastsearch on known result for word that is in the up-right diagonal and down-left diagonal directions        
+    def test_wordsearchsolve_fastsearch_fastSearch_upright_and_downleft(self):
+        #up-right search
+        result = self.wsSolver.fastSearch(keyword="JEM")
+        knownResult = [(7,9),(8,8),(9,7)]
+        self.assertEqual(result, knownResult)
+        
+        #down-left search
+        result = self.wsSolver.fastSearch(keyword="UHURA")
+        knownResult = [(4,0),(3,1),(2,2),(1,3),(0,4)]
+        self.assertEqual(result, knownResult)
         
         
 if __name__ == "__main__":
