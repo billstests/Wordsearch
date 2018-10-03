@@ -16,7 +16,7 @@ class WordsearchSolver:
     def generateSolutionOutput(self, useFastSearch=False):
         self.solve(useFastSearch)
         results = self.wordsearch.results.items()
-        results = sorted(results, lambda x:x[0])    #sort ascending by keyword
+        results = sorted(results, key=lambda x:x[0])    #sort ascending by keyword
         solutionOutput = ""
         for keyword, coords in results:
             solutionOutput = solutionOutput + keyword + ": " + self.__coordListToStr(coords) + "\n"
