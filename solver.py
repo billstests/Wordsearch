@@ -3,23 +3,25 @@ from wordsearch import *
 class WordsearchSolver:
     def __init__(self, wordsearch):
         self.wordsearch = wordsearch
+        #search directions and their corresponding x- and y-coordinate increments 
         self.directions = {"UP":(0,-1), "DOWN":(0,1), "LEFT":(-1,0), "RIGHT":(1,0), "UPLEFT":(-1,-1), "UPRIGHT":(1,-1),
                            "DOWNLEFT":(-1,1), "DOWNRIGHT":(1,1)}
         
     #print out the wordsearch solution: the keywords and their respective coordinates
-    def printSolution(self):
-        resultsStr = self.generateSolutionOutput()
+    def printSolution(self,useFastSearch=False):
+        resultsStr = self.generateSolutionOutput(useFastSearch)
         print(resultsStr)
         
-    #generate the solution string consisting of the keywords and their coordinates
-    def generateSolutionOutput(self):
-        self.solve()
+    #generate the solution strings consisting of the keywords and their coordinates
+    def generateSolutionOutput(self, useFastSearch=False):
+        self.solve(useFastSearch)
         results = self.wordsearch.results.items()
         solutionOutput = ""
         for keyword, coords in results:
             solutionOutput = solutionOutput + keyword + ": " + self.__coordListToStr(coords) + "\n"
         return solutionOutput
     
+    #helper function to format the coordinate list solution output
     def __coordListToStr(self, coordList):
         coordStr = ""
         for i, c in enumerate(coordList):
@@ -80,8 +82,8 @@ class WordsearchSolver:
         BC_y2 = (y_i+(L-1)*dy < gridLength)         #boundary condition 2 for y-direction (vertical)
         return BC_x1 and BC_x2 and BC_y1 and BC_y2
 
-    #Alternative method for searching keywords in grid.  Flattens the grid into lines derived from iterating over a certain direction
-    # and saves that to memory.  Then the keywords are searched through these lines and the index is found where the keyword is.
+    #Alternative method for searching keywords in the grid.  Flattens the grid into lines derived from iterating over a certain direction
+    # and then saves that to memory.  Then the keywords are searched for in these lines and the index is found where the keyword occurs.
     # This index is then used to return the list of coords that make up the characters of the word.
     def fastSearch(self, keyword):
         #create flattened grid if it doesn't exist
@@ -103,6 +105,7 @@ class WordsearchSolver:
             if kw_index > -1:
                 return self.__getCoordList(keyword, direction, kw_index)
     
+    #Return coordinate list for keyword (used in fastSearch method)
     def __getCoordList(self, keyword, direction, kw_index):
         d = len(self.wordsearch.grid)
         L = len(keyword)
@@ -139,7 +142,7 @@ class WordsearchSolver:
                 result.append((col_i+dx*j+offset[0],row+offset[1]))
             return result
         
-    #flatten the grid by sweeping different directions and store them in memory to be searched for keywords
+    #flatten the grid by sweeping different directions and store them in memory to be searched for keywords (used in fastSearch method)
     def flattenGrid(self):
         grid = self.wordsearch.grid
         d = len(grid) #divisor
@@ -205,7 +208,3 @@ class WordsearchSolver:
             down += "".join([grid[i][j] for i in range(d)])
         self.line_grid.update({"DOWN":down})
         
-        
-        
-                
-                
