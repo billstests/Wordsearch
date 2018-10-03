@@ -5,24 +5,28 @@ class Wordsearch:
         self.results = dict()
         if os.path.exists(fileLocation):
             self.loadDataFile(fileLocation)
-        
+    
+    #load data from file
     def loadDataFile(self, fileLocation):
         f = open(fileLocation, 'r')
         lines = f.readlines()
         f.close()
         self.keywords, self.grid = self.parse(lines)
         
+    #load data if the keywords and grid data already exists
     def loadData(self, keywords=[], grid=[]):
         self.keywords = keywords
         self.grid = grid
-        
+    
+    #parse data file (modeled after kata data)
     def parse(self, lines):
         keywords = lines[0].replace("\n","").split(",")
         grid = []
         for row in lines[1:]:
             grid.append(row.replace("\n","").split(","))
         return keywords, grid
-        
+    
+    #checks if the wordsearch data and keywords are valid (requirements from the kata directions)
     def isValid(self):
         #There must be keywords to search for to be valid
         if len(self.keywords) == 0:

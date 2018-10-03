@@ -5,6 +5,7 @@ from solver import *
 
 class WordsearchSolverTests(unittest.TestCase):
     
+    #setup function that loads in default wordsearch data and instantiates a solver object
     def setUp(self):
         self.wsearch = Wordsearch("wordsearchEx1.txt")
         self.wsSolver = WordsearchSolver(self.wsearch)
@@ -108,10 +109,10 @@ class WordsearchSolverTests(unittest.TestCase):
         self.assertEqual(myOutput,expectedOutput)
         
     ############################################################################
-    #Below tests deal with implementing a faster method for searching for wonds in the wordsearch
+    #Below tests deal with implementing a faster method for searching for words in the wordsearch
     
     #fastsearch will implement a faster way to search by flattening the grid into a line obtained by
-    #itterating through the grid in a certain search direction  
+    #iterating through the grid in a certain search direction  
     def test_wordsearchsolve_fastsearch_flatten_grid_using_up_right_diagonal_concatenation(self):
         wsearch = Wordsearch("")
         #make a grid that is easy to check that it is 'flattened' correctly
